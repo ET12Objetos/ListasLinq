@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using ConsoleTables;
 
 namespace ListasLinq
@@ -22,15 +23,27 @@ namespace ListasLinq
                 new Auto { Marca="Toyota", Modelo="Etios", Año=2020 }
             };
 
-            Imprimir(automoviles);
+            //Imprimir(automoviles);
+
+            //notacion fluent
+            var resultadoFluent = automoviles.Where(x => x.Año == 2020 && x.Marca == "Toyota");
+
+            Imprimir(resultadoFluent, "Where - Fluent");
+
+            //notacion query
+            var resultadoQuery = from x in automoviles
+                                 where x.Año == 2020 && x.Marca == "Toyota"
+                                 select x;
+
+            Imprimir(resultadoQuery, "Where - Query");
 
         }
 
-        private static void Imprimir(List<Auto> automoviles, string functionName = "")
+        private static void Imprimir(IEnumerable<Auto> automoviles, string functionName = "")
         {
             Console.WriteLine($"==  {functionName}  ==============");
             var table = new ConsoleTable("Marca", "Modelo", "Año");
-            automoviles.ForEach(x => table.AddRow(x.Marca, x.Modelo, x.Año));
+            automoviles.ToList().ForEach(x => table.AddRow(x.Marca, x.Modelo, x.Año));
             table.Write();
             Console.WriteLine();
         }
