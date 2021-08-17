@@ -13,30 +13,67 @@ namespace ListasLinq
             {
                 new Auto { Marca="Toyota", Modelo="Hilux", Año=2019 },
                 new Auto { Marca="Chevrolet", Modelo="Onix", Año=2014 },
-                new Auto { Marca="Fias", Modelo="Cronos", Año=2015 },
+                new Auto { Marca="Fiat", Modelo="Cronos", Año=2015 },
                 new Auto { Marca="Volkswagen", Modelo="Gol", Año=2020 },
                 new Auto { Marca="Volkswagen", Modelo="Amarok", Año=2020 },
                 new Auto { Marca="Volkswagen", Modelo="T-Cross", Año=2018 },
                 new Auto { Marca="Ford", Modelo="Ranger", Año=2018 },
-                new Auto { Marca="Peugeout", Modelo="208", Año=2017 },
+                new Auto { Marca="Peugeot", Modelo="208", Año=2017 },
                 new Auto { Marca="Ford", Modelo="Ka", Año=2015 },
                 new Auto { Marca="Toyota", Modelo="Etios", Año=2020 }
             };
 
             //Imprimir(automoviles);
 
+            //where
+
             //notacion fluent
             var resultadoFluent = automoviles.Where(x => x.Año == 2020 && x.Marca == "Toyota");
 
-            Imprimir(resultadoFluent, "Where - Fluent");
+            //Imprimir(resultadoFluent, "Where - Fluent");
 
             //notacion query
             var resultadoQuery = from x in automoviles
                                  where x.Año == 2020 && x.Marca == "Toyota"
                                  select x;
 
-            Imprimir(resultadoQuery, "Where - Query");
+            //Imprimir(resultadoQuery, "Where - Query");
 
+            var resultado = automoviles.Where(x => x.Marca.EndsWith("t") && x.Año % 2 != 0);
+
+            //Imprimir(resultado, "Autos que terminen con letra 't'");
+
+            //select
+
+            var marcasFluent = automoviles.Where(x => x.Año == 2020).Select(x => x.Marca);
+
+            //marcasFluent.ToList().ForEach(x => System.Console.WriteLine(x));
+
+            var marcasQuery = from x in automoviles
+                              where x.Año == 2020
+                              select x.Marca;
+
+            //marcasQuery.ToList().ForEach(x => System.Console.WriteLine(x));
+
+            //order by
+
+            var autosOrdenadosAsc = automoviles.OrderBy(x => x.Año);
+
+            var autosOrdenadosAscQuery = from x in automoviles orderby x.Año select x;
+
+            //Imprimir(autosOrdenadosAsc, "Order By - Asc");
+            //Imprimir(autosOrdenadosAscQuery, "Order By - Asc");
+
+            var autosOrdenadosDesc = automoviles.OrderByDescending(x => x.Año);
+
+            var autosOrdenadosDescQuery = from x in automoviles orderby x.Año descending select x;
+
+            //Imprimir(autosOrdenadosDesc, "Order By - Desc");
+            //Imprimir(autosOrdenadosDescQuery, "Order By - Desc");
+
+            var autosVolkswagen = automoviles.Where(x => x.Marca == "Volkswagen").OrderBy(x => x.Modelo);
+
+            //Imprimir(autosVolkswagen, "Autos Volkswagen");
         }
 
         private static void Imprimir(IEnumerable<Auto> automoviles, string functionName = "")
