@@ -74,6 +74,26 @@ namespace ListasLinq
             var autosVolkswagen = automoviles.Where(x => x.Marca == "Volkswagen").OrderBy(x => x.Modelo);
 
             //Imprimir(autosVolkswagen, "Autos Volkswagen");
+
+            //first - caso :)
+            Auto auto1 = automoviles.First(x => x.Año == 2020);
+            Imprimir(auto1, "First - auto1");
+
+            //first - caso :(
+            //Auto auto2 = automoviles.First(x => x.Año == 2030);
+
+            //first - caso :)
+            Auto auto3 = automoviles.FirstOrDefault(x => x.Año == 2018);
+            Imprimir(auto3, "FirstOrDefault - auto3");
+
+            //first - caso :(
+            Auto auto4 = automoviles.FirstOrDefault(x => x.Año == 2030);
+
+            if (auto4 != null)
+                Imprimir(auto4, "FirstOrDefault - auto4");
+            else
+                System.Console.WriteLine("El auto4 no se encuentra en la lista");
+
         }
 
         private static void Imprimir(IEnumerable<Auto> automoviles, string functionName = "")
@@ -81,6 +101,15 @@ namespace ListasLinq
             Console.WriteLine($"==  {functionName}  ==============");
             var table = new ConsoleTable("Marca", "Modelo", "Año");
             automoviles.ToList().ForEach(x => table.AddRow(x.Marca, x.Modelo, x.Año));
+            table.Write();
+            Console.WriteLine();
+        }
+
+        private static void Imprimir(Auto automovil, string functionName = "")
+        {
+            Console.WriteLine($"==  {functionName}  ==============");
+            var table = new ConsoleTable("Marca", "Modelo", "Año");
+            table.AddRow(automovil.Marca, automovil.Modelo, automovil.Año);
             table.Write();
             Console.WriteLine();
         }
