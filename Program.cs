@@ -87,12 +87,54 @@ namespace ListasLinq
             Imprimir(auto3, "FirstOrDefault - auto3");
 
             //first - caso :(
-            Auto auto4 = automoviles.FirstOrDefault(x => x.Año == 2030);
+            // Auto auto4 = automoviles.FirstOrDefault(x => x.Año == 2030);
 
-            if (auto4 != null)
-                Imprimir(auto4, "FirstOrDefault - auto4");
-            else
-                System.Console.WriteLine("El auto4 no se encuentra en la lista");
+            // if (auto4 != null)
+            //     Imprimir(auto4, "FirstOrDefault - auto4");
+            // else
+            //     System.Console.WriteLine("El auto4 no se encuentra en la lista");
+
+            bool resultadoAll = automoviles.All(x => x.Marca == "Toyota");
+
+            System.Console.WriteLine($"All: {resultadoAll}");
+
+            resultadoAll = automoviles.All(x => x.Año > 2000);
+
+            System.Console.WriteLine($"All: {resultadoAll}");
+
+            bool resultadoAny = automoviles.Any(x => x.Marca == "Chevrolet");
+
+            System.Console.WriteLine($"Any: {resultadoAny}");
+
+            int minimo = automoviles.Min(x => x.Año);
+
+            System.Console.WriteLine($"Min: {minimo}");
+
+            Auto autoMinimo = automoviles.OrderBy(x => x.Año).First();
+
+            Imprimir(autoMinimo, "Min");
+
+            int maximo = automoviles.Max(x => x.Año);
+
+            System.Console.WriteLine($"Max: {maximo}");
+
+            int suma = automoviles.Sum(x => x.Año);
+
+            System.Console.WriteLine($"Sum: {suma}");
+
+            double promedio = automoviles.Average(x => x.Año);
+
+            System.Console.WriteLine($"Average: {promedio}");
+
+            //Auto autoSingle = automoviles.SingleOrDefault(x => x.Año == 2020);
+
+            var autosTake = automoviles.Take(4);
+
+            Imprimir(autosTake, "Take");
+
+            var autosSkip = automoviles.Skip(6);
+
+            Imprimir(autosSkip, "Skip");
 
         }
 
